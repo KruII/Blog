@@ -1,0 +1,24 @@
+:root {
+    --icon-color: #ffffff9b;
+    --icon-active-color: #fff;
+    --primary-dark-purple: #34005E;
+    --primary-light-purple: #7A3AAD;
+    --accent-orange: #ff9100;
+    --accent-orange-light: #FFC766;
+    --complementary-turquoise: #00FFC8;
+    --complementary-green: #5EFF7A;
+    --neutral-dark: #1A1A1A;
+    --neutral-medium: #2F2F2F;
+    --neutral-light: #B3B3B3;
+    --highlight-gold: #FFD700;
+    --highlight-red: #FF4B5C;
+
+    /* Font sizes calculated dynamically */
+    --font-size-xxs: clamp(10px, 1.5vw, 14px); /* Extra small */
+    --font-size-xs: clamp(12px, 2vw, 16px);   /* Small */
+    --font-size-sm: clamp(14px, 2.5vw, 18px); /* Medium-small */
+    --font-size-md: clamp(16px, 3vw, 20px);   /* Medium */
+    --font-size-lg: clamp(18px, 3.5vw, 24px); /* Large */
+    --font-size-xl: clamp(22px, 4vw, 28px);   /* Extra large */
+    --font-size-xxl: clamp(28px, 5vw, 36px);  /* Extra extra large */
+}
