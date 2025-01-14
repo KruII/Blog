@@ -1,3 +1,9 @@
-.Home {
-  /* Styles for Home */
+.header_home{
+  height: 540px;
+  background-color:blue;
+  width: 100%;
+  position: absolute;
+}
+.styles.nav_menu{
+  
 }

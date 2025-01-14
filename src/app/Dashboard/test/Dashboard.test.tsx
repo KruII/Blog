@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Dashboard from '../Dashboard';
+import Dashboard from '../page';
 import { describe, it } from 'node:test';
 
 describe('<Dashboard />', () => {

@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import PostDetails from '../page';
+import Navbar from '../Navbar';
 import { describe, it } from 'node:test';
 
-describe('<PostDetails />', () => {
+describe('<Navbar />', () => {
   it('renders without crashing', () => {
-    render(<PostDetails />);
+    render(<Navbar />);
   });
 });

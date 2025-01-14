@@ -1,16 +1,13 @@
-import Link from "next/link";
+import styles from './Home.module.css';
+// import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
-      <h1>Witamy na blogu!</h1>
-      <nav>
-        <ul>
-          <li><Link href="/about">O mnie</Link></li>
-          <li><Link href="/contact">Kontakt</Link></li>
-          <li><Link href="/posts">Posty</Link></li>
-        </ul>
-      </nav>
-    </div>
+    <>
+    <header className={styles.header_home}>
+      <div className={styles.nav_menu}>
+      </div>
+    </header>
+    </>
   );
 }

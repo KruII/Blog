@@ -3,9 +3,9 @@ import './Header.module.css';
 
 const Header = () => {
   return (
-    <div className="Header">
-      Header works!
-    </div>
+    <header>
+
+    </header>
   );
 };
 

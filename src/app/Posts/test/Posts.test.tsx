@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Posts from '../Posts';
+import Posts from '../page';
 import { describe, it } from 'node:test';
 
 describe('<Posts />', () => {

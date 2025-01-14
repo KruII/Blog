@@ -1,0 +1,23 @@
+/* Styles for Block */
+.box_shadow{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.box_shadow_inner {
+    box-shadow: inset 0 0 6px var(--box-shadow-inner);
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-one);
+    position: absolute;
+}
+.box_shadow_outer {
+    box-shadow: 0 -150vh 28px var(--box-shadow-outer);
+    transform: translateY(150vh);
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-one);
+    position: absolute;
+}
+

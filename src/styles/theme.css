@@ -7,6 +7,9 @@
     :root {
         --background: #160027;
         --foreground: #fff;
+
+        --box-shadow-inner: #ffffff47;
+        --box-shadow-outer: #ffffff0f;
     }
 }
 

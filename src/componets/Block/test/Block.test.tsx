@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
-import PostDetails from '../page';
+import Block from '../Block';
 import { describe, it } from 'node:test';
 
-describe('<PostDetails />', () => {
+describe('<Block />', () => {
   it('renders without crashing', () => {
-    render(<PostDetails />);
+    render(<Block />);
   });
 });

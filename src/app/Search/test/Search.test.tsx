@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Search from '../Search';
+import Search from '../page';
 import { describe, it } from 'node:test';
 
 describe('<Search />', () => {
