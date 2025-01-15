@@ -3,7 +3,7 @@ import styles from './Block.module.css';
 export default function Block({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }>) {
   return (
     <div className={styles.box_shadow}>
