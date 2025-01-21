@@ -9,6 +9,7 @@
     z-index: 10;
     border-radius: var(--border-radius-one);
     transition: left 0.3s ease; /* Animacja na left */
+    box-shadow: black 8px 8px 15px 1px;
 }
 
 /* Pozycja zwinięta */

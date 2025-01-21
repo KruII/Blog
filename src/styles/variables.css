@@ -3,7 +3,7 @@
     --primary-dark-purple: #34005E;
     --primary-light-purple: #7A3AAD;
     --accent-orange: #ff9100;
-    --accent-orange-light: #FFC766;
+    --accent-orange-light: #fdc316;
     --complementary-turquoise: #00FFC8;
     --complementary-green: #5EFF7A;
     --neutral-dark: #1A1A1A;
@@ -30,4 +30,5 @@
     --icon-size-active: 48px;
 
     --border-radius-one: 46px;
+    --border-radius-two: 16px;
 }

@@ -55,6 +55,8 @@ export default function Navbar() {
 
   const dynamicHeight = 60 + buttonsList.length * 135;
 
+  const sampleData = ["Home", "Dashboard", "Posts", "Archive", "Profile"];
+
   return (
     <>
     <div
@@ -86,7 +88,7 @@ export default function Navbar() {
 
       {/* SearchBar Component */}
     </div>
-    <SearchBar isVisible={isSearchActive} onClose={toggleSearch} />
+    <SearchBar isVisible={isSearchActive} data={sampleData} />
     </>
   );
 }

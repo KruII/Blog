@@ -7,9 +7,17 @@
     :root {
         --background: #160027;
         --foreground: #fff;
+        
+        --hover-color: #00000055;
 
         --box-shadow-inner: #ffffff47;
         --box-shadow-outer: #ffffff0f;
+    }
+
+    hr{
+        border-top-width: 0px !important;
+        background: var(--primary-dark-purple);
+        height: 1px !important;
     }
 }
 
