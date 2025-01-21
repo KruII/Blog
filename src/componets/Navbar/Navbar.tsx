@@ -4,14 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import Block from "@/componets/Block/Block";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faUser, faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import SearchBar from "@/componets/SearchBar/SearchBar"; // Import SearchBar
+import { faHouse, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "@/componets/SearchBar/SearchBar";
 
 export default function Navbar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [dynamicHeight, setDynamicHeight] = useState(60); // Dynamiczna wysokość ustawiana po stronie klienta
   const navbarRef = useRef<HTMLDivElement>(null);
-  
 
   const toggleNavbar = () => {
     setIsExpanded((prev) => !prev);
@@ -20,7 +20,6 @@ export default function Navbar() {
   const toggleSearch = () => {
     setIsSearchActive((prev) => !prev);
   };
-  
 
   const handleClickOutside = (event: MouseEvent) => {
     if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
@@ -43,52 +42,54 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Ustaw dynamicHeight po stronie klienta
+  useEffect(() => {
+    const buttonsList = [
+      { label: "Home", icon: faHouse, isActive: false, onClick: () => (window.location.href = "/") },
+      { label: "Search", icon: faMagnifyingGlass, isActive: isSearchActive, onClick: toggleSearch },
+    ];
+    setDynamicHeight(60 + buttonsList.length * 135);
+  }, [isSearchActive]);
+
   const buttonsList = [
-    { label: "Home", icon: faHouse, isActive: false, onClick: ()=>window.location.href = "/"},
+    { label: "Home", icon: faHouse, isActive: false, onClick: () => (window.location.href = "/") },
     { label: "Search", icon: faMagnifyingGlass, isActive: isSearchActive, onClick: toggleSearch },
-    { label: "User", icon: faUser, isActive: false },
-    { label: "Option", icon: faBars, isActive: false },
   ];
 
-  const dynamicHeight = 60 + buttonsList.length * 135;
-
-  const sampleData = ["Home", "Dashboard", "Posts", "Archive", "Profile"];
+  const sampleData = ["First"];
 
   return (
     <>
-    <div
-      ref={navbarRef}
-      className={`${styles.navbar} ${isExpanded ? styles.expanded : styles.collapsed}`}
-      style={{ height: `${dynamicHeight}px` }}
-    >
-      <Block>
-        {!isExpanded && (
-          <span className={styles.box_shadow_onOff} onClick={toggleNavbar}>
-            ▸
-          </span>
-        )}
-      </Block>
-      <div className={styles.content}>
-        {buttonsList.map((button, index) => (
+      <div
+        ref={navbarRef}
+        className={`${styles.navbar} ${isExpanded ? styles.expanded : styles.collapsed}`}
+        style={{ height: `${dynamicHeight}px` }} // Używamy dynamicHeight po stronie klienta
+      >
+        <Block>
+          {!isExpanded && (
+            <span className={styles.box_shadow_onOff} onClick={toggleNavbar}>
+              ▸
+            </span>
+          )}
+        </Block>
+        <div className={styles.content}>
+          {buttonsList.map((button, index) => (
             <div key={index} className={styles.buttonWrapper}>
-            <button
-              className={`${styles.button} ${button.isActive ? styles.isActive : ""}`}
-              onClick={button.onClick}
-              type="button"
-            >
-              <FontAwesomeIcon icon={button.icon} />
-            </button>
-            <span className={styles.tooltip}>{button.label}</span>
-          </div>
-        ))}
+              <button
+                className={`${styles.button} ${button.isActive ? styles.isActive : ""}`}
+                onClick={button.onClick}
+                type="button"
+              >
+                <FontAwesomeIcon icon={button.icon} />
+              </button>
+              <span className={styles.tooltip}>{button.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
-
-      {/* SearchBar Component */}
-    </div>
-    <SearchBar isVisible={isSearchActive} data={sampleData} />
+      <SearchBar isVisible={isSearchActive} data={sampleData} />
     </>
   );
 }
