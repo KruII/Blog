@@ -52,6 +52,7 @@
 
 .searchButton svg{
     transition: height 0.2s, width 0.2s;
+    animation: searchButtonLoop 15s infinite;
 }
 
 .searchButton:hover {
@@ -84,6 +85,7 @@
     border-radius: 16px;
     transition: opacity 0.2s ease, height 0.2s ease;
     overflow: hidden;
+    box-shadow: black 6px 6px 14px 0px;
 }
 
 .resultItem{
@@ -96,7 +98,7 @@
     display: flex;
     align-items: center;
     font-size: var(--font-size-xs);
-    transition: padding 0.3s, font-size 0.3s, margin 0.3s;
+    transition: padding 0.3s, font-size 0.3s, margin 0.3s, border-radius 0.3s, box-shadow 0.3s;
 }
 .results > .resultItem:nth-child(2) {
     margin-top: 10px;
@@ -125,6 +127,25 @@
     margin-left: 5px;
     margin-right: 5px;
     font-size: var(--font-size-sm);
+    box-shadow: inset #000000 1px 1px 1px 1px;
+}
+
+@keyframes searchButtonLoop {
+    0% { 
+        transform: rotate(0deg); 
+    }
+    2% {
+        transform: rotate(10deg);
+    }
+    4% {
+        transform: rotate(-10deg);
+    }
+    6% {
+        transform: rotate(0deg);
+    }
+    100% { 
+        transform: rotate(0deg); 
+    }
 }
 
 @keyframes shake {
