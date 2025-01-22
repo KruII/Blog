@@ -27,6 +27,24 @@ export default function Home() {
         </div>
       </section>
 
+      {/** ========== SEARCH BAR ========== */}
+      <section className={styles.searchSection}>
+        <div className={styles.searchBar}>
+          <input
+            type="text"
+            placeholder="Wyszukaj artykuły..."
+            className={styles.searchInput}
+          />
+          <button className={styles.searchButton}>Szukaj</button>
+        </div>
+        <div className={styles.filterContainer}>
+          <span className={`${styles.filterOption} active`}>Wszystkie</span>
+          <span className={styles.filterOption}>Frontend</span>
+          <span className={styles.filterOption}>Backend</span>
+          <span className={styles.filterOption}>UX/UI</span>
+        </div>
+      </section>
+
       {/** ========== SEKCJA PRZYPINANE I NAJNOWSZE WPISY ========== */}
       <section className={styles.pinnedLatestSection}>
         {/* Przypięte wpisy (2-3) */}
@@ -108,23 +126,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/** ========== SEARCH BAR ========== */}
-      <section className={styles.searchSection}>
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            placeholder="Wyszukaj artykuły..."
-            className={styles.searchInput}
-          />
-          <button className={styles.searchButton}>Szukaj</button>
-        </div>
-        <div className={styles.filterContainer}>
-          <span className={`${styles.filterOption} active`}>Wszystkie</span>
-          <span className={styles.filterOption}>Frontend</span>
-          <span className={styles.filterOption}>Backend</span>
-          <span className={styles.filterOption}>UX/UI</span>
-        </div>
-      </section>
 
       {/** ========== SEKCJA KATEGORII (SLIDERY) ========== */}
       <section className={styles.categoriesSection}>
