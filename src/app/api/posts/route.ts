@@ -34,8 +34,9 @@ export async function GET(request: NextRequest) {
             paramIndex += 2;
         }
 
+        // id: integer; title: text; content: text; category: text[]; author: text; reading_time: integer; created_at: timestamp without time zone;
         const query = `
-            SELECT *
+            SELECT id, title, content, category, author, reading_time, created_at
             FROM posts
             ${whereClause}
             ORDER BY ${safeSortBy} ${safeOrder}

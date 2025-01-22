@@ -18,6 +18,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden; /* w razie dużego obrazka w tle */
+  background-color: black;
+  box-shadow: var(--primary-dark-purple) 0px 4px 6px 0px;
 }
 
 /* Obrazek tła (np. miniatura/cover najnowszego artykułu) */
@@ -30,7 +32,25 @@
   object-fit: cover;
   object-position: center;
   z-index: 0;
-  filter: brightness(0.7); /* Przyciemnij, by tekst się wyróżniał */
+  filter: brightness(0.6) blur(3px); /* Przyciemnij, by tekst się wyróżniał */
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.45), /* Przyciemnienie z lewej */
+    rgb(0, 0, 0),   /* Środek przeźroczysty */
+    rgba(0, 0, 0, 0.45)  /* Przyciemnienie z prawej */
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.45), /* Przyciemnienie z lewej */
+    rgb(0, 0, 0),   /* Środek przeźroczysty */
+    rgba(0, 0, 0, 0.45)  /* Przyciemnienie z prawej */
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
 }
 
 .heroContent {
@@ -40,14 +60,28 @@
   z-index: 1;
 }
 
+.heroCategories{
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .heroCategory {
+  background-color: var(--hover-color);
   display: inline-block;
-  background-color: var(--accent-orange);
-  color: #fff;
-  padding: 0.3rem 0.8rem;
+  color: #ffffee;
+  padding: 0.2rem 0.5rem;
   border-radius: var(--border-radius-two);
-  font-size: var(--font-size-xs);
-  margin-bottom: 1rem;
+  font-size: var(--font-size-xxs);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgb(255, 255, 255) 0px 0px 2px;
 }
 
 .heroTitle {
@@ -205,24 +239,53 @@
 /* ========== SEARCH BAR Z FILTROWANIEM ========== */
 .searchSection {
   width: 100%;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 1rem 1rem;
+  /* Propozycja tła – możesz zmienić na inny kolor lub gradient */
+  background-color: var( --hover-color);
+  display: grid;
+  justify-content: center;
+  box-shadow: var(--primary-dark-purple) 0px 4px 6px 0px;
 }
 
 .searchBar {
+  width: 1200px;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
+  color: var(--neutral-dark);
+}
+
+/* Kontener na ikonkę i input obok siebie */
+.searchInputWrapper {
+  position: relative; /* aby ikona mogła być absolutnie pozycjonowana */
+  flex: 1;           /* wypełnia wolne miejsce */
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 10px;           /* odstęp ikony od lewej krawędzi inputu */
+  transform: translateY(-50%);
+  color: var(--accent-orange); /* możesz zmienić kolor */
+  pointer-events: none;        /* żeby klik nie łapał na ikonkę */
+  font-size: var(--font-size-md);
 }
 
 .searchInput {
-  flex: 1;
-  padding: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem; /* dodatkowy left padding na ikonę */
   font-size: var(--font-size-md);
   border: 1px solid var(--neutral-light);
   border-radius: var(--border-radius-two);
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+
+.searchInput:focus {
+  box-shadow: 0 0 0 2px var(--accent-orange-light);
 }
 
 .searchButton {
@@ -233,13 +296,18 @@
   border: none;
   border-radius: var(--border-radius-two);
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s ease;
+  display: flex;       /* aby ikona i tekst były w jednej linii */
+  align-items: center;
+  gap: 0.5rem;         /* odstęp między ikoną a tekstem */
 }
 
 .searchButton:hover {
   background-color: var(--accent-orange-light);
+  transform: scale(1.05);
 }
 
+/* Filtry kategorii */
 .filterContainer {
   display: flex;
   flex-wrap: wrap;
@@ -261,6 +329,7 @@
   background-color: var(--accent-orange);
   color: #fff;
 }
+
 
 /* ========== SEKCJA Z KATEGORIAMI (SLIDERY) ========== */
 .categoriesSection {

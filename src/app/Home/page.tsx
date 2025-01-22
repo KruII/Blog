@@ -2,6 +2,9 @@
 "use client";
 import React from "react";
 import styles from "./Home.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Block from "@/componets/Block/Block";
 
 export default function Home() {
   return (
@@ -10,13 +13,12 @@ export default function Home() {
       <section className={styles.heroSection}>
 
         <img
-          src=""
+          src={`/uploads/standard.png`}
           alt="Miniatura najnowszego artykułu"
           className={styles.heroBackground}
         />
 
         <div className={styles.heroContent}>
-          <span className={styles.heroCategory}>Frontend</span>
           <h1 className={styles.heroTitle}>Najnowszy wpis na blogu</h1>
           <p className={styles.heroDescription}>
             Krótki opis (2-3 zdania) dotyczący najnowszego artykułu. Dowiedz się,
@@ -25,25 +27,42 @@ export default function Home() {
           </p>
           <button className={styles.heroButton}>Czytaj więcej</button>
         </div>
+        <div className={styles.heroCategories}>
+          <div className={styles.heroCategory}><Block borderRadius="var(--border-radius-two)"/>Frontend</div>
+          <span className={styles.heroCategory}><Block borderRadius="var(--border-radius-two)"/>Frontend</span>
+        </div>
       </section>
 
-      {/** ========== SEARCH BAR ========== */}
-      <section className={styles.searchSection}>
-        <div className={styles.searchBar}>
+    {/** ========== SEARCH BAR ========== */}
+    <section className={styles.searchSection}>
+      <div className={styles.searchBar}>
+        {/* Kontener inputu i ikony */}
+        <div className={styles.searchInputWrapper}>
+          {/* Ikona FontAwesome (lupa) */}
+          <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.searchIcon} />
           <input
             type="text"
             placeholder="Wyszukaj artykuły..."
             className={styles.searchInput}
           />
-          <button className={styles.searchButton}>Szukaj</button>
         </div>
-        <div className={styles.filterContainer}>
-          <span className={`${styles.filterOption} active`}>Wszystkie</span>
-          <span className={styles.filterOption}>Frontend</span>
-          <span className={styles.filterOption}>Backend</span>
-          <span className={styles.filterOption}>UX/UI</span>
-        </div>
-      </section>
+
+        {/* Przycisk z ikoną lupy i tekstem */}
+        <button className={styles.searchButton}>
+        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+          Szukaj
+        </button>
+      </div>
+
+      {/* Filtry kategorii */}
+      {/* <div className={styles.filterContainer}>
+        <span className={`${styles.filterOption} active`}>Wszystkie</span>
+        <span className={styles.filterOption}>Frontend</span>
+        <span className={styles.filterOption}>Backend</span>
+        <span className={styles.filterOption}>UX/UI</span>
+      </div> */}
+    </section>
+
 
       {/** ========== SEKCJA PRZYPINANE I NAJNOWSZE WPISY ========== */}
       <section className={styles.pinnedLatestSection}>
