@@ -55,9 +55,19 @@
 
 .heroContent {
   max-width: 900px;
-  padding: 2rem;
   text-align: center;
   z-index: 1;
+  background-color: #00000044;
+  box-shadow: rgb(255, 255, 255) 0px 0px 2px;
+  position: relative;
+  border-radius: var(--border-radius-one);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px); /* Rozmycie tła za elementem */
+}
+
+.heroContentContainer{
+  padding: 2rem;
+  position: relative;
 }
 
 .heroCategories{
@@ -135,25 +145,36 @@
   margin-bottom: 0.5rem;
 }
 
-.pinnedArticle {
+.pinnedArticleContent{
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
-  background: var(--neutral-medium);
-  border-radius: var(--border-radius-two);
   padding: 1rem;
+  gap: 1rem;
+  position: relative;
+}
+
+.pinnedArticle {
+  position: relative;
+  border-radius: var(--border-radius-two);
+  box-shadow: rgb(255, 255, 255) 0px 0px 2px;
 }
 
 .pinnedLabel {
-  display: inline-block;
-  background-color: var(--highlight-red);
-  color: #fff;
-  padding: 0.3rem 0.5rem;
-  border-radius: var(--border-radius-two);
+  color: var(--highlight-red);
   font-size: var(--font-size-xxs);
-  margin-right: auto;
-  margin-bottom: 0.5rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: var(--background);
+  aspect-ratio: 1/1;
+  height: calc(var(--font-size-xxs)*2);
+  transform: translate(-50%, -50%) rotate(-30deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: rgb(255, 255, 255) 0px 0px 2px;
 }
 
 .pinnedInfo {

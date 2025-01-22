@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./Home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import Block from "@/componets/Block/Block";
 
 export default function Home() {
@@ -19,6 +19,8 @@ export default function Home() {
         />
 
         <div className={styles.heroContent}>
+          <Block borderRadius="var(--border-radius-one)"/>
+          <div className={styles.heroContentContainer}>
           <h1 className={styles.heroTitle}>Najnowszy wpis na blogu</h1>
           <p className={styles.heroDescription}>
             Krótki opis (2-3 zdania) dotyczący najnowszego artykułu. Dowiedz się,
@@ -26,6 +28,7 @@ export default function Home() {
             React, Next.js i TypeScript!
           </p>
           <button className={styles.heroButton}>Czytaj więcej</button>
+          </div>
         </div>
         <div className={styles.heroCategories}>
           <div className={styles.heroCategory}><Block borderRadius="var(--border-radius-two)"/>Frontend</div>
@@ -71,28 +74,34 @@ export default function Home() {
           <h2 className={styles.pinnedTitle}>Przypięte artykuły</h2>
           {/* Przykładowe przypięte wpisy */}
           <div className={styles.pinnedArticle}>
-            <div className={styles.pinnedThumb} />
-            <div className={styles.pinnedInfo}>
-              <span className={styles.pinnedLabel}>Przypięty</span>
-              <h3 className={styles.pinnedArticleTitle}>
-                Poradnik React dla Początkujących
-              </h3>
-              <p className={styles.pinnedArticleDesc}>
-                Krótki opis przypiętego artykułu, aby zachęcić do czytania.
-              </p>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.pinnedArticleContent}>
+              <div className={styles.pinnedThumb} />
+              <div className={styles.pinnedInfo}>
+                <span className={styles.pinnedLabel}><Block borderRadius="50%"/><FontAwesomeIcon icon={faThumbtack} /></span>
+                <h3 className={styles.pinnedArticleTitle}>
+                  Poradnik React dla Początkujących
+                </h3>
+                <p className={styles.pinnedArticleDesc}>
+                  Krótki opis przypiętego artykułu, aby zachęcić do czytania.
+                </p>
+              </div>
             </div>
           </div>
 
           <div className={styles.pinnedArticle}>
-            <div className={styles.pinnedThumb} />
-            <div className={styles.pinnedInfo}>
-              <span className={styles.pinnedLabel}>Przypięty</span>
-              <h3 className={styles.pinnedArticleTitle}>
-                Jak ogarnąć TypeScript?
-              </h3>
-              <p className={styles.pinnedArticleDesc}>
-                Kilka wskazówek dotyczących konfiguracji i używania TS w projekcie.
-              </p>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.pinnedArticleContent}>
+              <div className={styles.pinnedThumb} />
+              <div className={styles.pinnedInfo}>
+                <span className={styles.pinnedLabel}><Block borderRadius="50%"/><FontAwesomeIcon icon={faThumbtack} /></span>
+                <h3 className={styles.pinnedArticleTitle}>
+                  Jak ogarnąć TypeScript?
+                </h3>
+                <p className={styles.pinnedArticleDesc}>
+                  Kilka wskazówek dotyczących konfiguracji i używania TS w projekcie.
+                </p>
+              </div>
             </div>
           </div>
         </div>
