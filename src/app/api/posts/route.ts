@@ -48,7 +48,9 @@ export async function GET(request: NextRequest) {
         image_urls,
         author,
         reading_time,
-        created_at
+        created_at,
+        url,
+        pinned
       FROM posts
       ${whereClause}
       ORDER BY ${safeSortBy} ${safeOrder}
@@ -71,7 +73,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     // Zwróć uwagę, że 'image_urls' to tablica text[] 
     // (np. ["https://example.com/img1.jpg", "https://example.com/img2.png"])
-    const { title, content, category, image_urls, author, reading_time } = body;
+    const { title, content, category, image_urls, author, reading_time, url, pinned } = body;
 
     if (!title || !content) {
       return new NextResponse("Missing title or content", { status: 400 });
@@ -85,8 +87,8 @@ export async function POST(request: NextRequest) {
     // VALUES ($1, $2, $3, $4, $5, $6)
     // i w bazie kolumny muszą mieć typ text[]
     const query = `
-      INSERT INTO posts (title, content, category, image_urls, author, reading_time)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO posts (title, content, category, image_urls, author, reading_time, url, pinned)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING 
         id,
         category,
@@ -95,7 +97,9 @@ export async function POST(request: NextRequest) {
         image_urls,
         author,
         reading_time,
-        created_at
+        created_at,
+        url,
+        pinned
     `;
     const values = [
       title,
@@ -103,7 +107,9 @@ export async function POST(request: NextRequest) {
       category || "{}",      // jeśli brak kategorii, pusta tablica
       image_urls || "{}",    // jeśli brak obrazków, pusta tablica
       author || "Admin",
-      reading_time || 5
+      reading_time || 5,
+      url,
+      pinned
     ];
 
     const { rows } = await pool.query(query, values);

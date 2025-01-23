@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/',
-        destination: '/Home',
+        destination: '/home',
         permanent: true, // Ustaw na true, jeśli przekierowanie ma być stałe (301)
       },
     ];

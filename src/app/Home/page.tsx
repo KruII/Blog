@@ -1,66 +1,60 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-
-import React, { useEffect, useState } from "react";
-import styles from "./Home.module.css";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faThumbtack } from "@fortawesome/free-solid-svg-icons";
-import Block from "@/componets/Block/Block";
 
-/** 
- * Ten interfejs musi zgadzać się z kolejnością i nazwami 
- * zwracanymi przez endpoint /api/posts
- */
-type Post = {
+// IMPORT STYLI I KOMPONENTU BLOCK
+import styles from "./Home.module.css";   // dostosuj ścieżkę, jeśli trzymasz style inaczej
+import Block from "@/componets/Block/Block"; // dostosuj ścieżkę
+import pool from "@/lib/db";             // połączenie do PostgreSQL
+
+// Typ posta zgodny z tabelą w bazie
+interface Post {
   id: number;
-  category: string[];        // text[]
+  category: string[];        
   title: string;
   content: string;
-  image_urls: string[];      // text[]
+  image_urls: string[];      
   author: string;
   reading_time: number;
-  created_at: string;
-};
+  created_at: string;        // timestamp w bazie
+  url: string;               // link do artykułu
+  pinned: boolean;           // kolumna pinned (boolean)
+}
 
-export default function Home() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+/** Ile najnowszych artykułów wyświetlamy */
+const LATEST_LIMIT = 6;
 
-  useEffect(() => {
-    // Pobierz max 8 postów (posortowanych desc)
-    const fetchPosts = async () => {
-      try {
-        const params = new URLSearchParams({
-          limit: "8",
-          order: "desc",
-        });
-        const res = await fetch(`/api/posts?${params}`, { method: "GET" });
-        if (!res.ok) {
-          throw new Error("Błąd podczas pobierania postów");
-        }
-        const data: Post[] = await res.json();
-        setPosts(data);
-      } catch (error) {
-        console.error("fetchPosts error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+/** Funkcja serwerowa – pobiera posty bezpośrednio z bazy */
+async function getPostsFromDB(): Promise<Post[]> {
+  // Zapytanie zwraca wszystkie kolumny, posortowane malejąco po dacie
+  const query = `
+    SELECT 
+      id,
+      category,
+      title,
+      content,
+      image_urls,
+      author,
+      reading_time,
+      created_at,
+      url,
+      pinned
+    FROM posts
+    ORDER BY created_at DESC
+  `;
+  
+  const { rows } = await pool.query(query);
+  return rows;
+}
 
-    fetchPosts();
-  }, []);
+/** Główny komponent strony (Server Component) */
+export default async function Home() {
+  // 1. Pobieramy posty bezpośrednio z bazy
+  const posts = await getPostsFromDB();
 
-  // Ekran ładowania
-  if (loading) {
-    return (
-      <main className={styles.mainContainer}>
-        <p style={{ textAlign: "center", padding: "2rem" }}>Wczytywanie...</p>
-      </main>
-    );
-  }
-
-  // Brak postów
-  if (posts.length === 0) {
+  // 2. Jeśli brak postów, możemy wyświetlić placeholder
+  if (!posts || posts.length === 0) {
     return (
       <main className={styles.mainContainer}>
         <p style={{ textAlign: "center", padding: "2rem" }}>
@@ -70,27 +64,28 @@ export default function Home() {
     );
   }
 
-  // Pierwszy post to "Hero"
+  // 3. Hero = pierwszy post w posortowanej tablicy (najnowszy)
   const heroPost = posts[0];
-  // Kolejne 2 (jeśli istnieją) to "pinned"
-  const pinnedPosts = posts.slice(1, 3);
-  // Reszta to "najnowsze"
-  const latestPosts = posts.slice(0);
 
-  /**
-   * Zwraca URLa do głównego obrazka (pierwszego w tablicy `image_urls`).
-   * Jeśli brak jakichkolwiek obrazków, używamy "/uploads/standard.png"
-   */
-  function getMainImageUrl(post: Post): string {
+  // 4. Przypięte – pomijając hero
+  const pinnedPosts = posts.filter(post => post.pinned);
+
+  // 5. Najnowsze (ograniczone do LATEST_LIMIT, bez hero i bez pinned)
+  const latestPosts = posts
+    .filter(post => post.id !== heroPost.id && !post.pinned)
+    .slice(0, LATEST_LIMIT);
+
+  /** Zwraca URL pierwszego obrazka z `image_urls` lub /uploads/standard.png, jeśli brak */
+  function getMainImageUrl(post: Post) {
     if (post.image_urls && post.image_urls.length > 0) {
-      return post.image_urls[0]; // pierwszy element z tablicy
+      return post.image_urls[0];
     }
     return "/uploads/standard.png";
   }
 
   return (
     <main className={styles.mainContainer}>
-      {/* ========== SEKCJA HERO ========== */}
+      {/* ========== SEKCJA HERO (pierwszy = najnowszy) ========== */}
       <section className={styles.heroSection}>
         <img
           src={getMainImageUrl(heroPost)}
@@ -103,15 +98,16 @@ export default function Home() {
           <div className={styles.heroContentContainer}>
             <h1 className={styles.heroTitle}>{heroPost.title}</h1>
             <p className={styles.heroDescription}>
-              {/* Wyświetlamy fragment treści, np. 120 znaków */}
               {heroPost.content.slice(0, 120)}...
             </p>
-            <button className={styles.heroButton}>Czytaj więcej</button>
+            <a href={`/post/${heroPost.url}`} className={styles.heroButton}>
+              Czytaj więcej
+            </a>
           </div>
         </div>
 
+        {/* Kategorie w hero, np. w formie badge'y */}
         <div className={styles.heroCategories}>
-          {/* Wyświetlamy tablicę kategorii jako małe "badge" */}
           {heroPost.category.map((cat, idx) => (
             <span key={idx} className={styles.heroCategory}>
               <Block borderRadius="var(--border-radius-two)" />
@@ -137,7 +133,6 @@ export default function Home() {
             Szukaj
           </button>
         </div>
-        {/* Możesz dodać filtry kategorii lub dynamiczne wyszukiwanie */}
       </section>
 
       {/* ========== SEKCJA PRZYPINANE I NAJNOWSZE WPISY ========== */}
@@ -146,10 +141,8 @@ export default function Home() {
         <div className={styles.pinnedContainer}>
           <h2 className={styles.pinnedTitle}>Przypięte artykuły</h2>
           <div className={styles.pinnedArticleContainer}>
-            {pinnedPosts.length === 0 && (
-              <p>Brak przypiętych artykułów</p>
-            )}
-            {pinnedPosts.map((post) => (
+            {pinnedPosts.length === 0 && <p>Brak przypiętych artykułów</p>}
+            {pinnedPosts.map(post => (
               <div key={post.id} className={styles.pinnedArticle}>
                 <Block borderRadius="var(--border-radius-two)" />
                 <img
@@ -167,7 +160,7 @@ export default function Home() {
                     <p className={styles.pinnedArticleDesc}>
                       {post.content.slice(0, 80)}...
                     </p>
-                    <a href="#" className={styles.readMoreBtn}>
+                    <a href={`/post/${post.url}`} className={styles.readMoreBtn}>
                       Czytaj więcej &rarr;
                     </a>
                   </div>
@@ -177,12 +170,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Najnowsze */}
+        {/* Najnowsze (limit = 3) */}
         <div className={styles.latestContainer}>
           <h2 className={styles.latestTitle}>Najnowsze artykuły</h2>
           <div className={styles.latestGrid}>
             {latestPosts.length === 0 && <p>Brak dodatkowych artykułów</p>}
-            {latestPosts.map((post) => (
+            {latestPosts.map(post => (
               <div key={post.id} className={styles.latestCard}>
                 <Block borderRadius="var(--border-radius-two)" />
                 <div className={styles.latestCardContent}>
@@ -196,7 +189,7 @@ export default function Home() {
                     <p className={styles.latestDescCard}>
                       {post.content.slice(0, 60)}...
                     </p>
-                    <a href="#" className={styles.readMoreBtn}>
+                    <a href={`/post/${post.url}`} className={styles.readMoreBtn}>
                       Czytaj więcej &rarr;
                     </a>
                   </div>
@@ -224,7 +217,7 @@ export default function Home() {
           </blockquote>
         </div>
         <div className={styles.aboutImage}>
-          {/* Dodaj własną ilustrację/zdjęcie */}
+          {/* Ilustracja/zdjęcie, jeśli chcesz */}
         </div>
       </section>
 
