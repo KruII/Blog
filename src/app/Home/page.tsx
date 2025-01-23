@@ -73,34 +73,50 @@ export default function Home() {
         <div className={styles.pinnedContainer}>
           <h2 className={styles.pinnedTitle}>Przypięte artykuły</h2>
           {/* Przykładowe przypięte wpisy */}
-          <div className={styles.pinnedArticle}>
-            <Block borderRadius="var(--border-radius-two)"/>
-            <div className={styles.pinnedArticleContent}>
-              <div className={styles.pinnedThumb} />
-              <div className={styles.pinnedInfo}>
-                <span className={styles.pinnedLabel}><Block borderRadius="50%"/><FontAwesomeIcon icon={faThumbtack} /></span>
-                <h3 className={styles.pinnedArticleTitle}>
-                  Poradnik React dla Początkujących
-                </h3>
-                <p className={styles.pinnedArticleDesc}>
-                  Krótki opis przypiętego artykułu, aby zachęcić do czytania.
-                </p>
+          <div className={styles.pinnedArticleContainer}>
+            <div className={styles.pinnedArticle}>
+              <Block borderRadius="var(--border-radius-two)"/>
+              <img
+                src={`/uploads/standard.png`}
+                alt=""
+                className={styles.pinnedBackground}
+              />
+              <div className={styles.pinnedArticleContent}>
+                <div className={styles.pinnedInfo}>
+                  <span className={styles.pinnedLabel}><Block borderRadius="50%"/><FontAwesomeIcon icon={faThumbtack} /></span>
+                  <h3 className={styles.pinnedArticleTitle}>
+                    Poradnik React dla Początkujących
+                  </h3>
+                  <p className={styles.pinnedArticleDesc}>
+                    Krótki opis przypiętego artykułu, aby zachęcić do czytania.
+                  </p>
+                  <a href="#" className={styles.readMoreBtn}>
+                    Czytaj więcej &rarr;
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className={styles.pinnedArticle}>
-            <Block borderRadius="var(--border-radius-two)"/>
-            <div className={styles.pinnedArticleContent}>
-              <div className={styles.pinnedThumb} />
-              <div className={styles.pinnedInfo}>
-                <span className={styles.pinnedLabel}><Block borderRadius="50%"/><FontAwesomeIcon icon={faThumbtack} /></span>
-                <h3 className={styles.pinnedArticleTitle}>
-                  Jak ogarnąć TypeScript?
-                </h3>
-                <p className={styles.pinnedArticleDesc}>
-                  Kilka wskazówek dotyczących konfiguracji i używania TS w projekcie.
-                </p>
+            <div className={styles.pinnedArticle}>
+              <Block borderRadius="var(--border-radius-two)"/>
+              <img
+                src={`/uploads/standard.png`}
+                alt=""
+                className={styles.pinnedBackground}
+              />
+              <div className={styles.pinnedArticleContent}>
+                <div className={styles.pinnedInfo}>
+                  <span className={styles.pinnedLabel}><Block borderRadius="50%"/><FontAwesomeIcon icon={faThumbtack} /></span>
+                  <h3 className={styles.pinnedArticleTitle}>
+                    Jak ogarnąć TypeScript?
+                  </h3>
+                  <p className={styles.pinnedArticleDesc}>
+                    Kilka wskazówek dotyczących konfiguracji i używania TS w projekcie.
+                  </p>
+                  <a href="#" className={styles.readMoreBtn}>
+                    Czytaj więcej &rarr;
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -112,122 +128,69 @@ export default function Home() {
           <div className={styles.latestGrid}>
             {/* Przykładowe kafelki */}
             <div className={styles.latestCard}>
-              <div className={styles.latestThumb} />
-              <div className={styles.latestContent}>
-                <h3 className={styles.latestTitleCard}>Wstęp do Next.js 13</h3>
-                <p className={styles.latestDescCard}>
-                  Kilka słów o najnowszej wersji frameworka Next.js...
-                </p>
-                <a href="#" className={styles.readMoreBtn}>
-                  Czytaj więcej &rarr;
-                </a>
+            <Block borderRadius="var(--border-radius-two)"/>
+              <div className={styles.latestCardContent}>
+                <img
+                    src={`/uploads/standard.png`}
+                    alt=""
+                    className={styles.latestThumb}
+                />
+                <div className={styles.latestContent}>
+                  <h3 className={styles.latestTitleCard}>Wstęp do Next.js 13</h3>
+                  <p className={styles.latestDescCard}>
+                    Kilka słów o najnowszej wersji frameworka Next.js...
+                  </p>
+                  <a href="#" className={styles.readMoreBtn}>
+                    Czytaj więcej &rarr;
+                  </a>
+                </div>
               </div>
             </div>
 
             <div className={styles.latestCard}>
-              <div className={styles.latestThumb} />
-              <div className={styles.latestContent}>
-                <h3 className={styles.latestTitleCard}>Testy w React</h3>
-                <p className={styles.latestDescCard}>
-                  Przegląd popularnych bibliotek do testowania i najlepsze praktyki...
-                </p>
-                <a href="#" className={styles.readMoreBtn}>
-                  Czytaj więcej &rarr;
-                </a>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.latestCardContent}>
+                <img
+                    src={`/uploads/standard.png`}
+                    alt=""
+                    className={styles.latestThumb}
+                />
+                <div className={styles.latestContent}>
+                  <h3 className={styles.latestTitleCard}>Testy w React</h3>
+                  <p className={styles.latestDescCard}>
+                    Przegląd popularnych bibliotek do testowania i najlepsze praktyki...
+                  </p>
+                  <a href="#" className={styles.readMoreBtn}>
+                    Czytaj więcej &rarr;
+                  </a>
+                </div>
               </div>
             </div>
 
             <div className={styles.latestCard}>
-              <div className={styles.latestThumb} />
-              <div className={styles.latestContent}>
-                <h3 className={styles.latestTitleCard}>Refaktoryzacja kodu</h3>
-                <p className={styles.latestDescCard}>
-                  Jak skutecznie ulepszać istniejący projekt, nie psując niczego?
-                </p>
-                <a href="#" className={styles.readMoreBtn}>
-                  Czytaj więcej &rarr;
-                </a>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.latestCardContent}>
+                <img
+                    src={`/uploads/standard.png`}
+                    alt=""
+                    className={styles.latestThumb}
+                />
+                <div className={styles.latestContent}>
+                  <h3 className={styles.latestTitleCard}>Refaktoryzacja kodu</h3>
+                  <p className={styles.latestDescCard}>
+                    Jak skutecznie ulepszać istniejący projekt, nie psując niczego?
+                  </p>
+                  <a href="#" className={styles.readMoreBtn}>
+                    Czytaj więcej &rarr;
+                  </a>
+                </div>
               </div>
             </div>
-            {/* Dodaj więcej kart według potrzeb */}
           </div>
         </div>
       </section>
 
-
-      {/** ========== SEKCJA KATEGORII (SLIDERY) ========== */}
-      <section className={styles.categoriesSection}>
-        {/* Przykład 3 kategorii */}
-        <div className={styles.categoryRow}>
-          <div className={styles.categoryHeader}>
-            <h2 className={styles.categoryTitle}>Frontend</h2>
-          </div>
-          <div className={styles.categorySlider}>
-            {/* Przykładowe kafelki w sliderze */}
-            <div className={styles.categoryCard}>
-              <div className={styles.categoryThumb} />
-              <div className={styles.categoryCardContent}>
-                <h3 className={styles.categoryCardTitle}>React Hooks</h3>
-                <a href="#" className={styles.categoryReadMore}>
-                  Czytaj więcej &rarr;
-                </a>
-              </div>
-            </div>
-            <div className={styles.categoryCard}>
-              <div className={styles.categoryThumb} />
-              <div className={styles.categoryCardContent}>
-                <h3 className={styles.categoryCardTitle}>
-                  Optymalizacja w Vue
-                </h3>
-                <a href="#" className={styles.categoryReadMore}>
-                  Czytaj więcej &rarr;
-                </a>
-              </div>
-            </div>
-            {/* Dodaj więcej wg potrzeb */}
-          </div>
-        </div>
-
-        <div className={styles.categoryRow}>
-          <div className={styles.categoryHeader}>
-            <h2 className={styles.categoryTitle}>Backend</h2>
-          </div>
-          <div className={styles.categorySlider}>
-            <div className={styles.categoryCard}>
-              <div className={styles.categoryThumb} />
-              <div className={styles.categoryCardContent}>
-                <h3 className={styles.categoryCardTitle}>
-                  Node.js - najlepsze praktyki
-                </h3>
-                <a href="#" className={styles.categoryReadMore}>
-                  Czytaj więcej &rarr;
-                </a>
-              </div>
-            </div>
-            {/* ... */}
-          </div>
-        </div>
-
-        <div className={styles.categoryRow}>
-          <div className={styles.categoryHeader}>
-            <h2 className={styles.categoryTitle}>UX/UI</h2>
-          </div>
-          <div className={styles.categorySlider}>
-            <div className={styles.categoryCard}>
-              <div className={styles.categoryThumb} />
-              <div className={styles.categoryCardContent}>
-                <h3 className={styles.categoryCardTitle}>
-                  Projektowanie dostępne dla wszystkich
-                </h3>
-                <a href="#" className={styles.categoryReadMore}>
-                  Czytaj więcej &rarr;
-                </a>
-              </div>
-            </div>
-            {/* ... */}
-          </div>
-        </div>
-      </section>
+      <hr className={styles.hrHome} />
 
       {/** ========== SEKCJA "O BLOGU" ========== */}
       <section className={styles.aboutSection}>
@@ -254,20 +217,31 @@ export default function Home() {
         </div>
       </section>
 
+      <hr className={styles.hrHome} />
+
       {/** ========== SEKCJA STATYSTYK (opcjonalna) ========== */}
       <section className={styles.statsSection}>
         <div className={styles.statsContainer}>
           <div className={styles.statBox}>
-            <div className={styles.statValue}>+100</div>
-            <div className={styles.statLabel}>Artykułów</div>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.statBoxContent}>
+              <div className={styles.statValue}>+100</div>
+              <div className={styles.statLabel}>Artykułów</div>
+            </div>
           </div>
           <div className={styles.statBox}>
-            <div className={styles.statValue}>10 000+</div>
-            <div className={styles.statLabel}>Czytelników miesięcznie</div>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.statBoxContent}>
+              <div className={styles.statValue}>10 000+</div>
+              <div className={styles.statLabel}>Czytelników miesięcznie</div>
+            </div>
           </div>
           <div className={styles.statBox}>
-            <div className={styles.statValue}>5 lat</div>
-            <div className={styles.statLabel}>Tworzenia treści</div>
+            <Block borderRadius="var(--border-radius-two)"/>
+            <div className={styles.statBoxContent}>
+              <div className={styles.statValue}>5 lat</div>
+              <div className={styles.statLabel}>Tworzenia treści</div>
+            </div>
           </div>
         </div>
       </section>

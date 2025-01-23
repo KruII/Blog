@@ -1,3 +1,181 @@
-.Footer {
-  /* Styles for Footer */
+.footerContainer {
+  width: 100%;
+  background: linear-gradient(
+    145deg,
+    var(--background) 0%,
+    var(--primary-dark-purple) 100%
+  );
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  box-shadow: var(--primary-light-purple) 0px -4px 6px 0px;
+}
+
+/* Główna sekcja stopki, w której możesz umieścić kilka kolumn */
+.footerContent {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Każda kolumna stopki */
+.footerColumn {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Tytuł kolumny */
+.footerColumnTitle {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Opcjonalna dekoracja pod tytułem */
+.footerColumnTitle::after {
+  content: "";
+  display: block;
+  width: 30%;
+  height: 2px;
+  background: var(--accent-orange);
+  margin-top: 0.3rem;
+}
+
+/* Linki w stopce */
+.footerLinkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLink {
+  font-size: var(--font-size-xs);
+  margin-bottom: 0.4rem;
+  transition: color 0.2s;
+  color: #ffffffcc; /* lekko przygaszony biały */
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  color: #fff; /* jaśniejszy kolor w hover */
+}
+
+/* Ikony mediów społecznościowych */
+.socialIcons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.socialIcon {
+  font-size: var(--font-size-md);
+  color: #ffffffcc;
+  transition: transform 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.socialIcon:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Newsletter/Subscribe sekcja */
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.newsletterInput {
+  font-size: var(--font-size-xs);
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--border-radius-two);
+  outline: none;
+  max-width: 250px;
+}
+
+.newsletterButton {
+  font-size: var(--font-size-xs);
+  background-color: var(--accent-orange);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-two);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  width: fit-content;
+}
+
+.newsletterButton:hover {
+  background-color: var(--accent-orange-light);
+  transform: scale(1.05);
+}
+
+/* Linia podziału między sekcją kolumn a sekcją bottomFooter */
+.footerDivider {
+  width: 100%;
+  height: 4px !important;
+  margin: 0;
+  background-color: transparent;
+  box-shadow: var(--primary-light-purple) 0px 4px 6px 0px;
+}
+
+/* Dolna belka stopki */
+.bottomFooter {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-xxs);
+  box-sizing: border-box;
+}
+
+.bottomFooterLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bottomFooterRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Dodatkowa stylizacja jakiegoś mini "badge" czy info */
+.footerBadge {
+  background-color: var(--accent-orange);
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--border-radius-two);
+  font-size: var(--font-size-xxs);
+}
+
+/* Przykład animacji w stylu pulsującego tła / ozdobników */
+.footerBadge:hover {
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: var(--accent-orange);
+  }
+  100% {
+    background-color: var(--accent-orange-light);
+  }
 }

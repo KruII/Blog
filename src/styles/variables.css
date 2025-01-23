@@ -11,6 +11,7 @@
     --neutral-light: #B3B3B3;
     --highlight-gold: #FFD700;
     --highlight-red: #FF4B5C;
+    --hay-color: #ffffcc;
 
     /* Font sizes calculated dynamically */
     --font-size-xxs: clamp(10px, 1.5vw, 14px); /* Extra small */
