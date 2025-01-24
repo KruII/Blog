@@ -1,8 +1,10 @@
 .postContainer {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
+    width: 1200px;
+    margin: 2rem auto;
+    padding: 0rem;
+    position: relative;
+    border-radius: var(--border-radius-two);
+    box-shadow: var(--primary-light-purple) 0px 0px 6px 1px;
   }
   
   .hero {
@@ -10,12 +12,50 @@
     width: 100%;
     height: 300px;
     overflow: hidden;
+    border-radius: var(--border-radius-two);
+    overflow: hidden;
+    box-shadow: var(--primary-light-purple) 0px 4px 6px 0px;
   }
   
   .heroImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8); 
+    
+    /* Dla zgodności z przeglądarkami opartymi na WebKit */
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.7), /* Przyciemnienie z lewej */
+        rgba(0, 0, 0, 1), /* Środek w pełni widoczny */
+        rgba(0, 0, 0, 0.7)  /* Przyciemnienie z prawej */
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7), /* Przyciemnienie od góry */
+        rgba(0, 0, 0, 1), /* Środek w pełni widoczny */
+        rgba(0, 0, 0, 0.7)  /* Przyciemnienie od dołu */
+      );
+    -webkit-mask-composite: intersect;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7), /* Przyciemnienie z lewej */
+      rgba(0, 0, 0, 1), /* Środek w pełni widoczny */
+      rgba(0, 0, 0, 0.7)  /* Przyciemnienie z prawej */
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7), /* Przyciemnienie od góry */
+      rgba(0, 0, 0, 1), /* Środek w pełni widoczny */
+      rgba(0, 0, 0, 0.7)  /* Przyciemnienie od dołu */
+    );
+    mask-composite: intersect;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
   }
   
   .heroOverlay {
@@ -23,14 +63,17 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
+    background: var(--background-90);
+    color: var(--foreground);
     padding: 1rem;
+    box-shadow: var(--background) 0px 0px 14px 10px;
+
   }
   
   .postTitle {
-    font-size: 2rem;
-    margin: 0;
+    font-size: var( --font-size-xxl);
+    margin-top: -10px;
+    text-align: center;
   }
   
   .postAuthor {
@@ -45,9 +88,10 @@
   }
   
   .content {
-    margin-top: 2rem;
+    padding: 1rem;
     font-size: 1rem;
     line-height: 1.6;
+    position: relative;
   }
   
   .content p {

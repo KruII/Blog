@@ -7,6 +7,7 @@
     :root {
         --background: #160027;
         --foreground: #fff;
+        --background-90: hsla(274, 100%, 8%, 0.9);
         
         --hover-color: #00000055;
 

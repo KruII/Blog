@@ -1,59 +1,22 @@
+// app/page.tsx
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 
-// IMPORT STYLI I KOMPONENTU BLOCK
-import styles from "./Home.module.css";   // dostosuj ścieżkę, jeśli trzymasz style inaczej
-import Block from "@/componets/Block/Block"; // dostosuj ścieżkę
-import pool from "@/lib/db";             // połączenie do PostgreSQL
+// Importy styli i komponentów
+import styles from "./Home.module.css";
+import Block from "@/componets/Block/Block";
 
-// Typ posta zgodny z tabelą w bazie
-interface Post {
-  id: number;
-  category: string[];        
-  title: string;
-  content: string;
-  image_urls: string[];      
-  author: string;
-  reading_time: number;
-  created_at: string;        // timestamp w bazie
-  url: string;               // link do artykułu
-  pinned: boolean;           // kolumna pinned (boolean)
-}
+// Import wspólnej logiki do pobierania postów
+import { getAllPosts, Post } from "@/lib/posts";
 
-/** Ile najnowszych artykułów wyświetlamy */
 const LATEST_LIMIT = 6;
 
-/** Funkcja serwerowa – pobiera posty bezpośrednio z bazy */
-async function getPostsFromDB(): Promise<Post[]> {
-  // Zapytanie zwraca wszystkie kolumny, posortowane malejąco po dacie
-  const query = `
-    SELECT 
-      id,
-      category,
-      title,
-      content,
-      image_urls,
-      author,
-      reading_time,
-      created_at,
-      url,
-      pinned
-    FROM posts
-    ORDER BY created_at DESC
-  `;
-  
-  const { rows } = await pool.query(query);
-  return rows;
-}
-
-/** Główny komponent strony (Server Component) */
 export default async function Home() {
-  // 1. Pobieramy posty bezpośrednio z bazy
-  const posts = await getPostsFromDB();
+  // 1. Pobieramy posty bezpośrednio z bazy (brak fetch – bezpośredni dostęp)
+  const posts: Post[] = await getAllPosts();
 
-  // 2. Jeśli brak postów, możemy wyświetlić placeholder
   if (!posts || posts.length === 0) {
     return (
       <main className={styles.mainContainer}>
@@ -64,18 +27,18 @@ export default async function Home() {
     );
   }
 
-  // 3. Hero = pierwszy post w posortowanej tablicy (najnowszy)
+  // 2. Hero = pierwszy (najnowszy)
   const heroPost = posts[0];
 
-  // 4. Przypięte – pomijając hero
-  const pinnedPosts = posts.filter(post => post.pinned);
+  // 3. Przypięte
+  const pinnedPosts = posts.filter((post) => post.pinned);
 
-  // 5. Najnowsze (ograniczone do LATEST_LIMIT, bez hero i bez pinned)
+  // 4. Najnowsze, pomijając hero i pinned
   const latestPosts = posts
-    .filter(post => post.id !== heroPost.id && !post.pinned)
+    .filter((post) => post.id !== heroPost.id && !post.pinned)
     .slice(0, LATEST_LIMIT);
 
-  /** Zwraca URL pierwszego obrazka z `image_urls` lub /uploads/standard.png, jeśli brak */
+  /** Zwraca URL pierwszego obrazka lub obrazek domyślny */
   function getMainImageUrl(post: Post) {
     if (post.image_urls && post.image_urls.length > 0) {
       return post.image_urls[0];
@@ -85,7 +48,7 @@ export default async function Home() {
 
   return (
     <main className={styles.mainContainer}>
-      {/* ========== SEKCJA HERO (pierwszy = najnowszy) ========== */}
+      {/* ========== SEKCJA HERO ========== */}
       <section className={styles.heroSection}>
         <img
           src={getMainImageUrl(heroPost)}
@@ -106,7 +69,7 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Kategorie w hero, np. w formie badge'y */}
+        {/* Kategorie w hero */}
         <div className={styles.heroCategories}>
           {heroPost.category.map((cat, idx) => (
             <span key={idx} className={styles.heroCategory}>
@@ -121,7 +84,10 @@ export default async function Home() {
       <section className={styles.searchSection}>
         <div className={styles.searchBar}>
           <div className={styles.searchInputWrapper}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.searchIcon} />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className={styles.searchIcon}
+            />
             <input
               type="text"
               placeholder="Wyszukaj artykuły..."
@@ -142,7 +108,7 @@ export default async function Home() {
           <h2 className={styles.pinnedTitle}>Przypięte artykuły</h2>
           <div className={styles.pinnedArticleContainer}>
             {pinnedPosts.length === 0 && <p>Brak przypiętych artykułów</p>}
-            {pinnedPosts.map(post => (
+            {pinnedPosts.map((post) => (
               <div key={post.id} className={styles.pinnedArticle}>
                 <Block borderRadius="var(--border-radius-two)" />
                 <img
@@ -170,12 +136,12 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Najnowsze (limit = 3) */}
+        {/* Najnowsze (limit = 6) */}
         <div className={styles.latestContainer}>
           <h2 className={styles.latestTitle}>Najnowsze artykuły</h2>
           <div className={styles.latestGrid}>
             {latestPosts.length === 0 && <p>Brak dodatkowych artykułów</p>}
-            {latestPosts.map(post => (
+            {latestPosts.map((post) => (
               <div key={post.id} className={styles.latestCard}>
                 <Block borderRadius="var(--border-radius-two)" />
                 <div className={styles.latestCardContent}>
