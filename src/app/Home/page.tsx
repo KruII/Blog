@@ -13,6 +13,37 @@ import { getAllPosts, Post } from "@/lib/posts";
 
 const LATEST_LIMIT = 6;
 
+
+/**
+ * Usuwa znaczniki HTML z podanego ciągu.
+ * @param html - Surowy HTML.
+ * @returns Czysty tekst.
+ */
+function stripHtmlTags(html: string): string {
+  return html.replace(/<[^>]*>?/gm, ''); // Usuwa wszystkie znaczniki HTML
+}
+
+/**
+ * Przycina tekst do określonej liczby znaków, zachowując pełne słowa.
+ * Dodaje "..." tylko wtedy, gdy tekst został przycięty.
+ * 
+ * @param text - Tekst wejściowy.
+ * @param maxLength - Maksymalna długość tekstu.
+ * @returns Przycięty tekst z zachowaniem pełnych słów.
+ */
+function truncateText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+
+  const truncated = text.slice(0, maxLength).trim();
+  const lastSpace = truncated.lastIndexOf(" ");
+
+  if (lastSpace === -1) {
+    return `${truncated}...`;
+  }
+
+  return `${truncated.slice(0, lastSpace)}...`;
+}
+
 export default async function Home() {
   // 1. Pobieramy posty bezpośrednio z bazy (brak fetch – bezpośredni dostęp)
   const posts: Post[] = await getAllPosts();
@@ -61,7 +92,7 @@ export default async function Home() {
           <div className={styles.heroContentContainer}>
             <h1 className={styles.heroTitle}>{heroPost.title}</h1>
             <p className={styles.heroDescription}>
-              {heroPost.content.slice(0, 120)}...
+              {truncateText(stripHtmlTags(heroPost.content), 120)}
             </p>
             <a href={`/post/${heroPost.url}`} className={styles.heroButton}>
               Czytaj więcej
@@ -124,7 +155,7 @@ export default async function Home() {
                     </span>
                     <h3 className={styles.pinnedArticleTitle}>{post.title}</h3>
                     <p className={styles.pinnedArticleDesc}>
-                      {post.content.slice(0, 80)}...
+                      {truncateText(stripHtmlTags(post.content), 80)}
                     </p>
                     <a href={`/post/${post.url}`} className={styles.readMoreBtn}>
                       Czytaj więcej &rarr;
@@ -153,7 +184,7 @@ export default async function Home() {
                   <div className={styles.latestContent}>
                     <h3 className={styles.latestTitleCard}>{post.title}</h3>
                     <p className={styles.latestDescCard}>
-                      {post.content.slice(0, 60)}...
+                      {truncateText(stripHtmlTags(post.content), 60)}
                     </p>
                     <a href={`/post/${post.url}`} className={styles.readMoreBtn}>
                       Czytaj więcej &rarr;

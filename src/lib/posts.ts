@@ -63,7 +63,7 @@ export async function getFilteredPosts(params: {
     const safeOrder = order === "asc" ? "asc" : "desc";
 
     let whereClause = "WHERE 1=1";
-    const values: any[] = [];
+    const values: unknown[] = [];
     let paramIndex = 1;
 
     // Filtr po kategorii (kolumna category to text[])
