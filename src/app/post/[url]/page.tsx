@@ -21,7 +21,7 @@ export default async function PostPage({ params }: { params: { url: string } }) 
   }
 
   // Sanityzacja treści posta
-  const safeContent = sanitizePostContent(post.content, ['example.com', 'cdn.example.com']);
+  const safeContent = sanitizePostContent(post.content);
 
   return (
     <main className={styles.postContainer}>
@@ -47,6 +47,8 @@ export default async function PostPage({ params }: { params: { url: string } }) 
         {/* Wyświetlamy sanityzowaną treść */}
         <div dangerouslySetInnerHTML={{ __html: safeContent }} />
       </article>
+      
+
     </main>
   );
 }
